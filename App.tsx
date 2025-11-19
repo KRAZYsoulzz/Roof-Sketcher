@@ -16,13 +16,32 @@ export default function App() {
   const [uploadError, setUploadError] = useState<string | null>(null);
 
   const [sketchState, setSketchState] = useState<SketchState>({ status: 'idle' });
-  const [gallery, setGallery] = useState<GalleryItem[]>([]);
+  
+  // Initialize gallery from localStorage
+  const [gallery, setGallery] = useState<GalleryItem[]>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('roof_sketcher_gallery');
+      try {
+        return saved ? JSON.parse(saved) : [];
+      } catch (e) {
+        console.error("Failed to parse gallery from local storage", e);
+        return [];
+      }
+    }
+    return [];
+  });
+
   const [installPrompt, setInstallPrompt] = useState<any>(null);
   const [selectedMaterial, setSelectedMaterial] = useState<RoofMaterial>('Asphalt Shingles');
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // PWA Install Logic
+  // Persist gallery to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('roof_sketcher_gallery', JSON.stringify(gallery));
+  }, [gallery]);
+
+  // PWA Install Logic & API Key Load
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();

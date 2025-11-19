@@ -55,6 +55,20 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, a
             </p>
           </div>
 
+          {/* Help Link */}
+          <div className="bg-blue-500/10 rounded-2xl p-4 border border-blue-500/10">
+             <p className="text-xs text-blue-200 mb-2">Need an API Key?</p>
+             <a 
+               href="https://aistudio.google.com/app/apikey" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               className="flex items-center gap-2 text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors"
+             >
+               <span>Get one from Google AI Studio</span>
+               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+             </a>
+          </div>
+
           <button
             onClick={handleSave}
             className="w-full py-4 px-4 bg-blue-600 hover:bg-blue-500 text-white font-medium text-[15px] rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-blue-900/20"
