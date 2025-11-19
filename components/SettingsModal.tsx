@@ -15,8 +15,15 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose, a
   }, [apiKey]);
 
   const handleSave = () => {
-    setApiKey(tempKey);
-    localStorage.setItem('gemini_api_key', tempKey);
+    if (!tempKey) {
+        onClose();
+        return;
+    }
+    // Aggressively clean the key: removes spaces, tabs, newlines, and invisible unicode chars (like zero-width spaces)
+    const cleanedKey = tempKey.replace(/[\s\u200B-\u200D\uFEFF]/g, '');
+    
+    setApiKey(cleanedKey);
+    localStorage.setItem('gemini_api_key', cleanedKey);
     onClose();
   };
 

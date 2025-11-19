@@ -51,8 +51,12 @@ export default function App() {
     
     const storedKey = localStorage.getItem('gemini_api_key');
     const envKey = process.env.API_KEY;
-    if (storedKey) setApiKey(storedKey);
-    else if (envKey) setApiKey(envKey);
+    
+    // Helper to clean invisible chars
+    const clean = (k: string) => k.replace(/[\s\u200B-\u200D\uFEFF]/g, '');
+
+    if (storedKey) setApiKey(clean(storedKey));
+    else if (envKey) setApiKey(clean(envKey));
 
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   }, []);
