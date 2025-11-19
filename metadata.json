@@ -1,0 +1,7 @@
+{
+  "name": "Roof Sketcher",
+  "description": "A PWA to convert aerial roof images into architectural line-art sketches using Gemini 3.0.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
